@@ -2,7 +2,7 @@
   <section id="education">
     <h2 class="text-xl md:text-2xl font-bold pb-2">Education</h2>
     <div class="relative flex flex-col gap-2 md:gap-4">
-      {{ range sort .Pages "Params.period" "desc" }}
+      {{ range sort .Pages "Params.period_begin" "desc" }}
         <div>
           <div class="flex flex-col md:flex-row items-start justify-between">
             <div>

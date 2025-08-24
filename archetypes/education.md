@@ -6,4 +6,6 @@ type = 'education'
 location = ''
 degree = ''
 period = ''
+period_begin = ''
+period_finish = ''
 +++

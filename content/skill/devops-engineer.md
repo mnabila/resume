@@ -1,16 +1,9 @@
 +++
 draft = true
-date = '2025-08-24T11:54:19+07:00'
-title = 'DevOps Engineer'
+date = '2025-08-24T11:54:13+07:00'
+title = 'Software Development'
 type = 'skill'
-description = 'Designing and implementing CI/CD pipelines to automate software builds, tests, and deployments for efficient and reliable delivery.'
-technologies= [
-  'Linux System Administrator',
-  'GitLab CI/CD',
-  'GitHub Actions',
-  'DigitalOcean',
-  'Docker',
-  'Bash',
-  'Git',
-]
+description = 'Building scalable and maintainable software solutions using modern programming languages, frameworks, and best practices.'
+languages = ['Golang', 'JavaScript', 'TypeScript', 'SQL']
+tools = ['Git', 'GitHub', 'GitLab', 'Docker', 'Node.js', 'PostgreSQL', 'MySQL', 'Redis', 'RabbitMQ']
 +++
