@@ -29,3 +29,9 @@ title = 'My New Hugo Site'
     name = "Your Name"
     description = "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat."
     image = "https://domain.com/profile.png"
+  [params.social]
+    github = "https://github.com/username"
+    gitlab = "https://github.com/username"
+    telegram = "https://t.me/username"
+    linkedin = "https://linkedin.com/in/username"
+    email = "mailto:email@domain.com"

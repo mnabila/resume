@@ -1,15 +1,33 @@
 <section id="header">
   <div class="flex flex-col-reverse md:flex-row gap-4 border-b border-gray border-dashed border-spacing-lg pb-8">
-    <div class="flex-1">
-      <h1 class="text-xl md:text-2xl font-bold">
-        {{ .Site.Params.author.name }}
-      </h1>
-      <p class="text-sm md:text-base leading-relaxed py-2 max-w-[60ch]">
-      {{ .Site.Params.author.description }} 
-      </p>
-    </div> 
-    <a href="#" target="_blank" rel="noopener noreferrer" class="relative mb-4 md:mb-0 mx-auto size-36 border-2 border-black border-dashed rounded-full"> 
-      <img src="{{ .Site.Params.author.image }}" alt="image" class="w-full h-full object-cover rounded-full"> 
-    </a>
+    <div class="flex-1 flex flex-col-reverse md:flex-col gap-2">
+      <div class="flex items-center gap-2">
+        <a href="{{ .Site.Params.social.email }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="If you want to contact me">
+          {{ partial "icon/email.html" . }}
+        </a>
+        <a href="{{ .Site.Params.social.github }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Github">
+          {{ partial "icon/github.html" . }}
+        </a>
+        <a href="{{ .Site.Params.social.gitlab }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Github">
+          {{ partial "icon/gitlab.html" . }}
+        </a>
+        <a href="{{ .Site.Params.social.telegram }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Github">
+          {{ partial "icon/telegram.html" . }}
+        </a>
+      </div>
+
+      <div>
+        <h1 class="text-xl md:text-2xl font-bold">
+          {{ .Site.Params.author.name }}
+        </h1>
+        <p class="text-sm md:text-base leading-relaxed py-2 max-w-[60ch]">
+          {{ .Site.Params.author.description }}
+        </p>
+      </div>
+    </div>
+    <div class="relative mb-4 md:mb-0 mx-auto size-36 border-2 border-gray-600 border-dashed rounded-full">
+      <img src="{{ .Site.Params.author.image }}" alt="image" class="w-full h-full object-cover rounded-full">
+    </div>
+  </div>
   </div>
 </section>
