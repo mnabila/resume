@@ -1,0 +1,23 @@
+{{ with .Site.GetPage "education" }}
+  <section id="education">
+    <h2 class="text-xl md:text-2xl font-bold pb-2">Education</h2>
+    <div class="relative flex flex-col gap-2 md:gap-4">
+      {{ range sort .Pages "Params.period" "desc" }}
+        <div>
+          <div class="flex flex-col md:flex-row items-start justify-between">
+            <div>
+              <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-2 md:py-0">
+                <h3 class="font-bold md:text-lg text-black">{{ .Title }}</h3>
+                <div class="flex items-center gap-2 pt-1 md:pt-0">
+                  <span class="text-xs px-2 py-1 rounded-sm bg-gray-200 font-mono uppercase">{{ .Params.location }}</span>
+                </div>
+              </div>
+              <span class="text-sm md:text-base font-mono text-gray-600">{{ .Params.degree }}</span>
+            </div>
+            <span class="text-black font-mono text-sm">{{ .Params.period }}</span>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

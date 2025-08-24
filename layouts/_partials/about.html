@@ -1,0 +1,6 @@
+{{ with .Site.GetPage "about" }}
+  <section id="about">
+    <h2 class="text-xl md:text-2xl font-bold font-sans pb-2">{{ .Title }}</h2>
+    <p class="text-sm md:text-base text-justify">{{ .Params.description }}</p>
+  </section>
+{{ end }}
