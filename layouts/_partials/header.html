@@ -3,16 +3,16 @@
     <div class="flex-1 flex flex-col-reverse md:flex-col gap-2">
       <div class="flex items-center gap-2">
         <a href="{{ .Site.Params.social.email }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="If you want to contact me">
-          {{ partial "icon/email.html" . }}
+          {{ partial "icon/email.html" (dict "class" "h-8 w-8") . }}
         </a>
         <a href="{{ .Site.Params.social.github }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Github">
-          {{ partial "icon/github.html" . }}
+          {{ partial "icon/github.html" (dict "class" "h-8 w-8") . }}
         </a>
         <a href="{{ .Site.Params.social.gitlab }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Github">
-          {{ partial "icon/gitlab.html" . }}
+          {{ partial "icon/gitlab.html" (dict "class" "h-8 w-8") . }}
         </a>
         <a href="{{ .Site.Params.social.telegram }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Github">
-          {{ partial "icon/telegram.html" . }}
+          {{ partial "icon/telegram.html" (dict "class" "h-8 w-8") . }}
         </a>
       </div>
 

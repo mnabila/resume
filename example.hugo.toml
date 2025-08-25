@@ -35,5 +35,7 @@ title = 'My New Hugo Site'
     telegram = "https://t.me/username"
     linkedin = "https://linkedin.com/in/username"
     email = "mailto:email@domain.com"
-  [params.analytics]
-    google = ""
+
+[services]
+  [services.googleAnalytics]
+    id = 'G-MEASUREMENT_ID'

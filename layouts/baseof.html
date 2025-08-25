@@ -1,18 +1,13 @@
 <!doctype html>
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
-
   <head>
     {{ partial "head.html" . }}
   </head>
 
-  <body class="h-full md:p-8">
+  <body class="h-full p-2 md:p-8">
     <main class="bg-white mx-auto max-w-[920px] px-2 md:px-4 py-10 flex flex-col gap-8 border-dashed border-gray-200 rounded-lg md:border-2">
       {{ partial "header.html" . }}
-      {{ partial "about.html" . }}
-      {{ partial "experience.html" . }}
-      {{ partial "education.html" . }}
-      {{ partial "skill.html" . }}
+      {{ block "main" . }}{{ end }}
     </main>
   </body>
-
 </html>
