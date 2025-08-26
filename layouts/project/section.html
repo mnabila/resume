@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <h2 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {{ range .Pages }}
+      {{ partial "card/project.html" . }}
+    {{ end }}
+  </div>
+
+  {{ partial "back.html" . }}
+{{ end }}

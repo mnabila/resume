@@ -1,0 +1,8 @@
+{{ with .Parent }}
+  <div>
+    <a href="{{ .RelPermalink }}" class="flex items-center uppercase">
+      {{ partial "icon/angles-left.html" (dict "class" "h-4 w-8") }}
+      <span>Back</span>
+    </a>
+  </div>
+{{ end }}
