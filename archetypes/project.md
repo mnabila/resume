@@ -1,6 +1,9 @@
 +++
-date = '{{ .Date }}'
 draft = true
+date = '{{ .Date }}'
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
-type = 'blog'
+type = 'project'
+description = ''
+languages = []
+tools= []
 +++
