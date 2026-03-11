@@ -1,10 +1,10 @@
-{{ with .Site.GetPage "project" }}
+{{ with .Site.GetPage "blog" }}
 {{ $pages := sort .Pages "Params.date" "desc" }}
-<section id="project">
-  <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Project</h2>
+<section id="blog">
+  <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Blog</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {{ range first 6 $pages }}
-      {{ partial "card/project.html" . }}
+      {{ partial "card/blog.html" . }}
     {{ end }}
   </div>
   {{ if gt (len $pages) 6 }}

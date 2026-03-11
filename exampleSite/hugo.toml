@@ -1,0 +1,56 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-US'
+title = 'Jane Doe — Software Engineer'
+theme = 'resume'
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = '0.146.0'
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    disableWatch = true
+    source = 'hugo_stats.json'
+    target = 'assets/notwatching/hugo_stats.json'
+
+[build]
+  [build.buildStats]
+    enable = true
+  [[build.cachebusters]]
+    source = 'assets/notwatching/hugo_stats\.json'
+    target = 'css'
+  [[build.cachebusters]]
+    source = '(postcss|tailwind)\.config\.js'
+    target = 'css'
+
+[params]
+  tagline = "Building things for the web"
+  [params.author]
+    name = "Jane Doe"
+    description = "Software engineer with 5+ years of experience building scalable web applications and cloud-native services. Passionate about open source, developer tooling, and clean architecture."
+    image = "https://api.dicebear.com/9.x/avataaars/svg?seed=Jane"
+  [params.social]
+    github = "https://github.com/janedoe"
+    gitlab = "https://gitlab.com/janedoe"
+    telegram = "https://t.me/janedoe"
+    linkedin = "https://linkedin.com/in/janedoe"
+    email = "mailto:jane@example.com"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+    guessSyntax = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+
+[taxonomies]
+  tag = 'tags'
+
+[services]
+  [services.googleAnalytics]
+    id = 'G-MEASUREMENT_ID'

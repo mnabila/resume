@@ -1,13 +1,13 @@
 {{ with .Site.GetPage "experience" }}
   <section id="experience">
-    <h2 class="text-xl md:text-2xl font-bold pb-2">Work Experience</h2>
+    <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Work Experience</h2>
     <div class="relative flex flex-col md:gap-8">
       {{ range sort .Pages "Params.period_begin" "desc" }}
         <div>
           <div class="flex flex-col md:flex-row items-start justify-between">
             <div>
               <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-2 md:py-0">
-                <h3 class="font-bold md:text-lg text-black">{{ .Title }}</h3>
+                <h3 class="font-serif font-bold md:text-lg text-black">{{ .Title }}</h3>
                 <div class="flex items-center gap-2 pt-1 md:pt-0"> 
                   <span class="text-xs px-2 py-1 rounded-sm bg-gray-200 font-mono uppercase">{{ .Params.workmode }}</span> 
                   <span class="text-xs px-2 py-1 rounded-sm bg-gray-200 font-mono uppercase">{{ .Params.worktype }}</span>
@@ -24,7 +24,7 @@
           </ul>
           <ul class="flex flex-wrap items-center pt-2 gap-2">
             {{ range $tech := .Params.technologies }}
-              <div class="text-sm md:text-md font-mono">#{{ $tech }}</div>
+              <div class="text-xs px-2 py-1 rounded-sm bg-gray-800 text-gray-100 font-mono">#{{ $tech }}</div>
             {{ end }}
           </ul>
         </div>

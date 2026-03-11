@@ -8,4 +8,5 @@ degree = ''
 period = ''
 period_begin = ''
 period_finish = ''
+score = ''
 +++

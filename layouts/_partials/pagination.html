@@ -1,0 +1,31 @@
+{{ $card := .card | default "card/blog.html" }}
+{{ $paginator := .page.Paginate .page.Pages 6 }}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  {{ range $paginator.Pages }}
+    {{ partial $card . }}
+  {{ end }}
+</div>
+
+<div class="flex items-center justify-between mt-6">
+  {{ partial "back.html" .page }}
+
+  {{ if gt $paginator.TotalPages 1 }}
+  <div class="flex items-center gap-3">
+    {{ if $paginator.HasPrev }}
+    <a href="{{ $paginator.Prev.URL }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">
+      <span>&larr;</span>
+      <span>Prev</span>
+    </a>
+    {{ end }}
+
+    <span class="text-sm font-medium text-gray-700">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+
+    {{ if $paginator.HasNext }}
+    <a href="{{ $paginator.Next.URL }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">
+      <span>Next</span>
+      <span>&rarr;</span>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>

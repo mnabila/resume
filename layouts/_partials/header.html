@@ -20,8 +20,8 @@
       </div>
 
       <div>
-        <h1 class="text-xl md:text-2xl font-bold">
-          {{ .Site.Params.author.name }}
+        <h1 class="text-xl md:text-2xl font-serif font-bold">
+          <a href="/">{{ .Site.Params.author.name }}</a>
         </h1>
         <p class="text-sm md:text-base leading-relaxed py-2 max-w-[60ch]">
           {{ .Site.Params.author.description }}
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="relative mb-4 md:mb-0 mx-auto size-36 border-2 border-gray-600 border-dashed rounded-full">
-      <img src="{{ .Site.Params.author.image }}" alt="image" class="w-full h-full object-cover rounded-full">
+      <img src="{{ .Site.Params.author.image }}" alt="{{ .Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" decoding="async">
     </div>
   </div>
   </div>
