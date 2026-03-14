@@ -5,11 +5,6 @@
         <h3 class="md:text-lg font-serif font-bold capitalize pb-2 border-b border-dashed">{{ .Title }}</h3>
       </a>
       <p class="leading-normal py-2 text-sm">{{ .Params.description }}</p>
-      {{ with .Params.repository }}
-      <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover font-medium mt-1">
-        {{ partial "icon/github.html" }} Repository
-      </a>
-      {{ end }}
     </div>
     {{ with .GetTerms "languages" }}
     <div>
