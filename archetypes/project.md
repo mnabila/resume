@@ -4,6 +4,7 @@ date = '{{ .Date }}'
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 type = 'project'
 description = ''
+image = ''
 languages = []
 tools= []
 +++

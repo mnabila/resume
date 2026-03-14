@@ -13,6 +13,53 @@
     font-optical-sizing: auto;
   }
 
+  /* ── Skip-to-content link ── */
+  .skip-to-content {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0 0 0.375rem 0;
+  }
+
+  .skip-to-content:focus {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* ── Scroll-triggered reveal ── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
   /* ── Prose typography ── */
   .prose {
     max-width: none;
@@ -179,34 +226,34 @@
     font-family: theme(fontFamily.mono);
     font-size: 0.875rem;
     line-height: 1.6;
-    background: #1e1e2e;
-    color: #cdd6f4;
+    background: #f9f8f6;
+    color: #4a4a4a;
   }
 
   /* Line numbers */
   .prose .highlight .lnt {
-    color: #585b70;
+    color: #b8b8b8;
     padding-right: 1em;
     user-select: none;
   }
 
-  /* ── Chroma syntax tokens (Catppuccin Mocha) ── */
+  /* ── Chroma syntax tokens (Monochromatic Pastel) ── */
   .chroma .c,
   .chroma .ch,
   .chroma .cm,
   .chroma .c1,
   .chroma .cs,
   .chroma .cp,
-  .chroma .cpf { color: #6c7086; font-style: italic; }
+  .chroma .cpf { color: #b0aaa0; font-style: italic; }
 
   .chroma .k,
   .chroma .kc,
   .chroma .kd,
   .chroma .kn,
   .chroma .kp,
-  .chroma .kr { color: #cba6f7; }
+  .chroma .kr { color: #2a2a2a; font-weight: 600; }
 
-  .chroma .kt { color: #f9e2af; }
+  .chroma .kt { color: #6b6360; }
 
   .chroma .s,
   .chroma .sa,
@@ -221,7 +268,7 @@
   .chroma .sx,
   .chroma .sr,
   .chroma .s1,
-  .chroma .ss { color: #a6e3a1; }
+  .chroma .ss { color: #7a7268; }
 
   .chroma .m,
   .chroma .mb,
@@ -229,35 +276,36 @@
   .chroma .mh,
   .chroma .mi,
   .chroma .il,
-  .chroma .mo,
-  .chroma .o,
-  .chroma .ow { color: #fab387; }
+  .chroma .mo { color: #8a7f74; }
 
-  .chroma .na { color: #89b4fa; }
+  .chroma .o,
+  .chroma .ow { color: #5a5550; }
+
+  .chroma .na { color: #6b6360; }
 
   .chroma .nb,
-  .chroma .bp { color: #f5c2e7; }
+  .chroma .bp { color: #5a5550; }
 
   .chroma .nf,
-  .chroma .fm { color: #89b4fa; }
+  .chroma .fm { color: #3a3530; }
 
   .chroma .nc,
   .chroma .nn,
   .chroma .ni,
-  .chroma .ne { color: #f9e2af; }
+  .chroma .ne { color: #2a2a2a; font-weight: 600; }
 
-  .chroma .nd { color: #89dceb; }
-  .chroma .nt { color: #cba6f7; }
+  .chroma .nd { color: #9a9488; }
+  .chroma .nt { color: #2a2a2a; font-weight: 600; }
 
   .chroma .nv,
   .chroma .vc,
   .chroma .vg,
-  .chroma .vi { color: #cdd6f4; }
+  .chroma .vi { color: #4a4a4a; }
 
-  .chroma .gd { color: #f38ba8; }
-  .chroma .gi { color: #a6e3a1; }
+  .chroma .gd { color: #8a7f74; text-decoration: line-through; }
+  .chroma .gi { color: #3a3530; font-weight: 600; }
 
-  .chroma .p { color: #9399b2; }
+  .chroma .p { color: #9a9488; }
 
   /* ── TOC styling (sidebar) ── */
   .toc ul {

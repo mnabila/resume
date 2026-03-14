@@ -1,5 +1,5 @@
 {{ with .Site.GetPage "experience" }}
-  <section id="experience">
+  <section id="experience" data-reveal>
     <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Work Experience</h2>
     <div class="relative flex flex-col md:gap-8">
       {{ range sort .Pages "Params.period_begin" "desc" }}

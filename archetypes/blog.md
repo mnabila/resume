@@ -4,5 +4,6 @@ date = '{{ .Date }}'
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 type = 'blog'
 description = ''
+image = ''
 tags = []
 +++

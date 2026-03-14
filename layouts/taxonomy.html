@@ -1,11 +1,36 @@
 {{ define "main" }}
-  <h2 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h2>
+  {{ $terms := .Data.Terms.ByCount }}
+  {{ $totalTerms := len $terms }}
+  {{ $perPage := 6 }}
+  {{ $totalPages := int (math.Ceil (div (float $totalTerms) (float $perPage))) }}
+  {{ $pageNum := .Paginator.PageNumber | default 1 }}
+  {{ $start := mul (sub $pageNum 1) $perPage }}
+  {{ $visible := after $start $terms | first $perPage }}
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {{ range .Pages }}
-      {{ partial "card/blog.html" . }}
-    {{ end }}
+  <section>
+    <h2 class="text-xl md:text-2xl font-serif font-bold pb-4 border-b border-dashed border-gray-300 mb-6">{{ .Title }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {{ range $visible }}
+        <div class="border border-dashed border-gray-300 rounded-md p-4">
+          <a href="{{ .Page.RelPermalink }}" class="font-serif font-bold md:text-lg hover:underline">#{{ .Page.LinkTitle }}</a>
+          <span class="text-xs text-gray-400 font-mono">({{ .Count }})</span>
+          <ul class="mt-4 flex flex-col gap-1">
+            {{ range first 3 .Pages }}
+              <li class="text-sm text-gray-600 flex items-center justify-between gap-2">
+                <a href="{{ .RelPermalink }}" class="hover:text-black transition-colors truncate">&rarr; {{ .Title }}</a>
+                <span class="text-xs text-gray-400 font-mono shrink-0">{{ .Date.Format "Jan 2006" }}</span>
+              </li>
+            {{ end }}
+          </ul>
+          {{ if gt .Count 3 }}
+            <a href="{{ .Page.RelPermalink }}" class="inline-block mt-2 text-xs text-gray-400 font-mono hover:text-gray-600 transition-colors">+{{ sub .Count 3 }} more</a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <div class="flex items-center justify-between mt-6">
+    {{ partial "back.html" . }}
   </div>
-
-  {{ partial "back.html" . }}
 {{ end }}

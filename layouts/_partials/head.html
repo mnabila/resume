@@ -1,28 +1,90 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{{ .Site.Title }}</title>
-<meta name="description" content="{{ if .Description }} {{ .Description }} {{ else }} {{ .Site.Params.author.description }} {{ end }}" />
-
-<meta name="author" content="{{ .Params.author.name }}" />
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.author.description }}{{ end }}" />
+<meta name="author" content="{{ .Site.Params.author.name }}" />
 <link rel="canonical" href="{{ .Permalink }}" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap" />
 
-<meta property="og:type" content="website" />
-<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.tagline }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}" />
-<meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+{{- $ogImage := "" -}}
+{{- if .Params.image -}}
+  {{- $ogImage = .Params.image | absURL -}}
+{{- else if .Site.Params.author.image -}}
+  {{- $ogImage = .Site.Params.author.image | absURL -}}
+{{- end -}}
+
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ with .Site.Params.tagline }} | {{ . }}{{ end }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}" />
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.author.description }}{{ end }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:image" content="{{ .Params.author.image | absURL}}">
+{{ with $ogImage }}<meta property="og:image" content="{{ . }}" />{{ end }}
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} | {{ .Site.Params.tagline }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}" />
-<meta name="twitter:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
-<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.image }}" />
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ with .Site.Params.tagline }} | {{ . }}{{ end }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}" />
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.author.description }}{{ end }}" />
+{{ with $ogImage }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
 
 <link rel="icon" href="/favicon.ico" />
 
+{{/* Google Analytics */}}
+{{ if not hugo.IsServer }}
+  {{ with .Site.Config.Services.GoogleAnalytics.ID }}
+    {{ template "_internal/google_analytics.html" $ }}
+  {{ end }}
+{{ end }}
+
+{{/* JSON-LD Structured Data */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ .Site.Params.author.name | jsonify }},
+  "url": {{ .Site.BaseURL | jsonify }},
+  "description": {{ .Site.Params.author.description | jsonify }}
+  {{- with .Site.Params.social.github }}, "sameAs": [{{ . | jsonify }}
+    {{- with $.Site.Params.social.linkedin }}, {{ . | jsonify }}{{ end }}
+    {{- with $.Site.Params.social.gitlab }}, {{ . | jsonify }}{{ end }}
+  ]{{ end }}
+  {{- with .Site.Params.author.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
+}
+</script>
+{{ else if and .IsPage (eq .Type "blog") }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ .Title | jsonify }},
+  "url": {{ .Permalink | jsonify }},
+  "datePublished": {{ .Date.Format "2006-01-02" | jsonify }},
+  {{- with .Lastmod }}"dateModified": {{ .Format "2006-01-02" | jsonify }},{{ end }}
+  "author": {
+    "@type": "Person",
+    "name": {{ $.Site.Params.author.name | jsonify }}
+  }
+  {{- with .Description }}, "description": {{ . | jsonify }}{{ end }}
+  {{- with .Params.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
+}
+</script>
+{{ else if and .IsPage (eq .Type "project") }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": {{ .Title | jsonify }},
+  "url": {{ .Permalink | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": {{ $.Site.Params.author.name | jsonify }}
+  }
+  {{- with .Description }}, "description": {{ . | jsonify }}{{ end }}
+  {{- with .Params.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
+}
+</script>
+{{ end }}
+
 {{ partial "head/css.html" }}
 {{ partial "head/js.html" }}
-
