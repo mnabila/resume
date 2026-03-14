@@ -1,5 +1,8 @@
 {{ define "main" }}
   <h2 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h2>
+  {{ with .Params.description }}
+  <p class="text-gray-600">{{ . }}</p>
+  {{ end }}
 
   {{ partial "pagination.html" (dict "page" . "card" "card/blog.html") }}
 {{ end }}

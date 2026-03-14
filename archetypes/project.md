@@ -5,6 +5,7 @@ title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 type = 'project'
 description = ''
 image = ''
+repository = ''
 languages = []
 tools= []
 +++

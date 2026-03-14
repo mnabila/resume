@@ -50,6 +50,8 @@ theme = 'resume'
 
 [taxonomies]
   tag = 'tags'
+  language = 'languages'
+  tool = 'tools'
 
 [services]
   [services.googleAnalytics]

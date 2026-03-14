@@ -2,6 +2,9 @@
 {{ $pages := sort .Pages "Params.date" "desc" }}
 <section id="project" data-reveal>
   <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Project</h2>
+  {{ with .Params.description }}
+  <p class="text-gray-600">{{ . }}</p>
+  {{ end }}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {{ range first 6 $pages }}
       {{ partial "card/project.html" . }}

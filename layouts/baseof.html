@@ -13,5 +13,8 @@
       </div>
       {{ partial "footer.html" . }}
     </main>
+    {{ if .Store.Get "hasMermaid" }}
+      {{ partial "mermaid.html" . }}
+    {{ end }}
   </body>
 </html>

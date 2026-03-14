@@ -4,6 +4,7 @@ date = '2024-06-01'
 title = 'TaskFlow'
 type = 'project'
 description = 'A CLI task runner and dependency graph executor inspired by Make, written in Go. Supports parallel execution, file-based caching, and YAML configuration.'
+repository = 'https://github.com/johndoe/taskflow'
 languages = ['Go']
 tools = ['Cobra', 'DAG', 'YAML']
 +++
