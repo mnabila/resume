@@ -1,8 +1,30 @@
 {{ define "main" }}
-  <h2 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h2>
-  {{ with .Params.description }}
-  <p class="text-gray-600">{{ . }}</p>
-  {{ end }}
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+    <div>
+      <h2 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h2>
+      {{ with .Params.description }}
+      <p class="text-gray-600">{{ . }}</p>
+      {{ end }}
+    </div>
+    <div class="relative">
+      <input
+        id="blog-search"
+        type="search"
+        placeholder="Search posts..."
+        data-index="{{ "blog/index.json" | absURL }}"
+        class="w-full md:w-64 pl-9 pr-3 py-2 text-sm border border-dashed border-gray-400 rounded-md bg-white placeholder-gray-400 focus:outline-none focus:border-accent transition-colors"
+      />
+      <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
+      </svg>
+    </div>
+  </div>
 
-  {{ partial "pagination.html" (dict "page" . "card" "card/blog.html") }}
+  {{/* Search results (hidden by default) */}}
+  <div id="search-results" class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"></div>
+
+  {{/* Default paginated content */}}
+  <div id="default-content" class="mt-4">
+    {{ partial "pagination.html" (dict "page" . "card" "card/blog.html") }}
+  </div>
 {{ end }}

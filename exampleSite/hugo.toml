@@ -25,6 +25,19 @@ theme = 'resume'
     source = '(postcss|tailwind)\.config\.js'
     target = 'css'
 
+[minify]
+  minifyOutput = true
+  [minify.tdewolff]
+    [minify.tdewolff.html]
+      keepWhitespace = false
+      keepDefaultAttrVals = true
+      keepEndTags = true
+      keepDocumentTags = true
+    [minify.tdewolff.css]
+      keepCSS2 = true
+    [minify.tdewolff.js]
+      keepVarNames = false
+
 [params]
   tagline = "Building things for the web"
   [params.author]
@@ -47,6 +60,9 @@ theme = 'resume'
     startLevel = 2
     endLevel = 4
     ordered = false
+
+[outputs]
+  section = ['html', 'rss', 'json']
 
 [taxonomies]
   tag = 'tags'
