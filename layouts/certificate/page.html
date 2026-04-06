@@ -1,0 +1,44 @@
+{{ define "main" }}
+  <article>
+    {{/* Article Header */}}
+    <header class="border-b border-dashed border-gray-300 pb-6 mb-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+        <h1 class="text-2xl md:text-3xl font-serif font-bold leading-tight">{{ .Title }}</h1>
+        {{ with .Params.credential_url }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md bg-accent text-white font-semibold hover:bg-accent-hover transition-colors">
+          Verify Credential &rarr;
+        </a>
+        {{ end }}
+      </div>
+      <div class="flex flex-wrap items-center gap-3 mt-3 text-sm text-gray-500">
+        {{ with .Params.issuer }}
+        <span class="font-mono text-gray-700">{{ . }}</span>
+        {{ end }}
+        {{ with .Params.issue_date }}
+        <span class="text-gray-300">·</span>
+        <span class="font-mono">Issued {{ . }}</span>
+        {{ end }}
+        {{ with .Params.expiry_date }}
+        <span class="text-gray-300">·</span>
+        <span class="font-mono">Expires {{ . }}</span>
+        {{ end }}
+      </div>
+      {{ with .Params.credential_id }}
+      <div class="mt-2">
+        <span class="text-xs font-mono text-gray-400">Credential ID: {{ . }}</span>
+      </div>
+      {{ end }}
+    </header>
+
+    {{/* Markdown Content */}}
+    {{ if .Content }}
+    <div class="prose min-w-0">
+      {{ .Content }}
+    </div>
+    {{ end }}
+
+    <div class="mt-6">
+      {{ partial "back.html" . }}
+    </div>
+  </article>
+{{ end }}

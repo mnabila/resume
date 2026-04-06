@@ -10,7 +10,7 @@
           <div class="flex flex-col md:flex-row items-start justify-between">
             <div>
               <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-2 md:py-0">
-                <h3 class="font-serif font-bold md:text-lg text-black">{{ .Title }}</h3>
+                <a href="{{ .RelPermalink }}" class="font-serif font-bold md:text-lg text-black hover:text-accent transition-colors">{{ .Title }}</a>
                 <div class="flex items-center gap-2 pt-1 md:pt-0"> 
                   <span class="text-xs px-2 py-1 rounded-sm bg-gray-200 font-mono uppercase">{{ .Params.workmode }}</span> 
                   <span class="text-xs px-2 py-1 rounded-sm bg-gray-200 font-mono uppercase">{{ .Params.worktype }}</span>

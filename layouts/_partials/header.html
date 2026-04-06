@@ -15,9 +15,16 @@
       <div class="hidden md:flex items-center gap-4">
         <a href="/" class="hover:text-accent transition-colors">Home</a>
         <a href="/#experience" class="hover:text-accent transition-colors">Experience</a>
+        {{ with .Site.GetPage "certificate" }}{{ if .Pages }}
+        <a href="/#certificate" class="hover:text-accent transition-colors">Certification</a>
+        {{ end }}{{ end }}
         <a href="/#skill" class="hover:text-accent transition-colors">Skill</a>
+        {{ with .Site.GetPage "project" }}{{ if .Pages }}
         <a href="/project/" class="hover:text-accent transition-colors">Project</a>
+        {{ end }}{{ end }}
+        {{ with .Site.GetPage "blog" }}{{ if .Pages }}
         <a href="/blog/" class="hover:text-accent transition-colors">Blog</a>
+        {{ end }}{{ end }}
       </div>
 
       <!-- Social icons (always visible) -->
@@ -44,9 +51,16 @@
     <div id="mobile-menu" class="hidden md:hidden flex-col gap-2 pt-3 pb-1">
       <a href="/" class="hover:text-accent transition-colors">Home</a>
       <a href="/#experience" class="hover:text-accent transition-colors">Experience</a>
+      {{ with .Site.GetPage "certificate" }}{{ if .Pages }}
+      <a href="/#certificate" class="hover:text-accent transition-colors">Certification</a>
+      {{ end }}{{ end }}
       <a href="/#skill" class="hover:text-accent transition-colors">Skill</a>
+      {{ with .Site.GetPage "project" }}{{ if .Pages }}
       <a href="/project/" class="hover:text-accent transition-colors">Project</a>
+      {{ end }}{{ end }}
+      {{ with .Site.GetPage "blog" }}{{ if .Pages }}
       <a href="/blog/" class="hover:text-accent transition-colors">Blog</a>
+      {{ end }}{{ end }}
     </div>
   </nav>
 

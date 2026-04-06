@@ -1,0 +1,33 @@
+{{ with .Site.GetPage "certificate" }}
+{{ if .Pages }}
+  <section id="certificate" data-reveal>
+    <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Certifications</h2>
+    {{ with .Params.description }}
+    <p class="text-gray-600">{{ . }}</p>
+    {{ end }}
+    <div class="relative flex flex-col gap-2 md:gap-4">
+      {{ range sort .Pages "Params.issue_date" "desc" }}
+        <div>
+          <div class="flex flex-col md:flex-row items-start justify-between">
+            <div>
+              <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-2 md:py-0">
+                <a href="{{ .RelPermalink }}" class="font-serif font-bold md:text-lg text-black hover:text-accent transition-colors">{{ .Title }}</a>
+              </div>
+              <span class="text-sm md:text-base font-mono text-gray-600">{{ .Params.issuer }}</span>
+            </div>
+            <div class="flex flex-col items-start md:items-end">
+              <span class="text-black font-mono text-sm">{{ .Params.issue_date }}</span>
+              {{ with .Params.expiry_date }}
+              <span class="text-gray-500 font-mono text-xs">Expires {{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+          {{ with .Params.credential_id }}
+          <span class="text-xs font-mono text-gray-400 mt-1">ID: {{ . }}</span>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}
+{{ end }}

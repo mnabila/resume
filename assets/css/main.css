@@ -11,6 +11,13 @@
   html {
     font-family: theme(fontFamily.sans);
     font-optical-sizing: auto;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   /* ── Skip-to-content link ── */
