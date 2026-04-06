@@ -29,7 +29,7 @@ theme = 'resume'
   minifyOutput = true
   [minify.tdewolff]
     [minify.tdewolff.html]
-      keepWhitespace = false
+      keepWhitespace = true
       keepDefaultAttrVals = true
       keepEndTags = true
       keepDocumentTags = true
