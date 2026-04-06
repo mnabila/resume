@@ -49,10 +49,12 @@
         </div>
         {{ end }}
 
-        {{/* Markdown Content */}}
+        {{/* Detailed Descriptions */}}
         {{ if .Content }}
-        <div class="prose min-w-0">
-          {{ .Content }}
+        <div class="mb-8">
+          <div class="prose min-w-0">
+            {{ .Content }}
+          </div>
         </div>
         {{ end }}
       </div>
