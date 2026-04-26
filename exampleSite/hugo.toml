@@ -39,6 +39,7 @@ theme = 'resume'
       keepVarNames = false
 
 [params]
+  favicon = "/favicon.ico"
   tagline = "Building things for the web"
   [params.author]
     name = "Jane Doe"

@@ -11,9 +11,17 @@
 
 {{- $ogImage := "" -}}
 {{- if .Params.image -}}
-  {{- $ogImage = .Params.image | absURL -}}
+  {{- with resources.Get .Params.image -}}
+    {{- $ogImage = .Permalink -}}
+  {{- else -}}
+    {{- $ogImage = .Params.image | absURL -}}
+  {{- end -}}
 {{- else if .Site.Params.author.image -}}
-  {{- $ogImage = .Site.Params.author.image | absURL -}}
+  {{- with resources.Get .Site.Params.author.image -}}
+    {{- $ogImage = .Permalink -}}
+  {{- else -}}
+    {{- $ogImage = .Site.Params.author.image | absURL -}}
+  {{- end -}}
 {{- end -}}
 
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
@@ -27,7 +35,15 @@
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.author.description }}{{ end }}" />
 {{ with $ogImage }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
 
+{{ with .Site.Params.favicon }}
+  {{ with resources.Get . }}
+<link rel="icon" href="{{ .RelPermalink }}" />
+  {{ else }}
+<link rel="icon" href="{{ . }}" />
+  {{ end }}
+{{ else }}
 <link rel="icon" href="/favicon.ico" />
+{{ end }}
 
 {{/* Google Analytics */}}
 {{ if not hugo.IsServer }}
@@ -49,7 +65,7 @@
     {{- with $.Site.Params.social.linkedin }}, {{ . | jsonify }}{{ end }}
     {{- with $.Site.Params.social.gitlab }}, {{ . | jsonify }}{{ end }}
   ]{{ end }}
-  {{- with .Site.Params.author.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
+  {{- with .Site.Params.author.image }}{{ $img := . }}{{ with resources.Get . }}{{ $img = .Permalink }}{{ else }}{{ $img = $img | absURL }}{{ end }}, "image": {{ $img | jsonify }}{{ end }}
 }
 </script>
 {{ else if and .IsPage (eq .Type "blog") }}
