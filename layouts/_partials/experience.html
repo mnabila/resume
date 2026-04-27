@@ -17,6 +17,9 @@
                 </div>
               </div> 
               <span class="text-sm md:text-base font-mono text">{{ .Params.role }}</span>
+              {{ with .Params.location }}
+                <span class="text-xs font-mono text-gray-500">{{ . }}</span>
+              {{ end }}
             </div>
             <span class="text-black font-mono text-sm md:text-base">{{ .Params.period }}</span>
           </div>
