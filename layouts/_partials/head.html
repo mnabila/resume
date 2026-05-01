@@ -5,9 +5,17 @@
 <meta name="author" content="{{ .Site.Params.author.name }}" />
 <link rel="canonical" href="{{ .Permalink }}" />
 
+{{- if and .IsPage (eq .Type "blog") }}
+<meta name="robots" content="index, follow" />
+{{- with .Params.tags }}
+<meta name="keywords" content="{{ delimit . ", " }}" />
+{{- end }}
+{{- end }}
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap" /></noscript>
 
 {{- $ogImage := "" -}}
 {{- if .Params.image -}}
@@ -45,10 +53,26 @@
 <link rel="icon" href="/favicon.ico" />
 {{ end }}
 
-{{/* Google Analytics */}}
+{{/* Google Analytics — deferred until after page load */}}
 {{ if not hugo.IsServer }}
   {{ with .Site.Config.Services.GoogleAnalytics.ID }}
-    {{ template "_internal/google_analytics.html" $ }}
+    {{ $gaID := . }}
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var s = document.createElement('script');
+          s.src = 'https://www.googletagmanager.com/gtag/js?id={{ $gaID }}';
+          s.async = true;
+          document.head.appendChild(s);
+          s.onload = function() {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ $gaID }}');
+          };
+        }, 100);
+      });
+    </script>
   {{ end }}
 {{ end }}
 
@@ -79,10 +103,22 @@
   {{- with .Lastmod }}"dateModified": {{ .Format "2006-01-02" | jsonify }},{{ end }}
   "author": {
     "@type": "Person",
+    "name": {{ $.Site.Params.author.name | jsonify }},
+    "url": {{ $.Site.BaseURL | jsonify }}
+  },
+  "publisher": {
+    "@type": "Person",
     "name": {{ $.Site.Params.author.name | jsonify }}
-  }
+  },
+  "inLanguage": "id",
+  "wordCount": {{ .WordCount }}
   {{- with .Description }}, "description": {{ . | jsonify }}{{ end }}
   {{- with .Params.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
+  {{- with .Params.tags }}, "keywords": {{ delimit . ", " | jsonify }}{{ end }}
+  , "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ $.Permalink | jsonify }}
+  }
 }
 </script>
 {{ else if and .IsPage (eq .Type "project") }}
@@ -98,6 +134,17 @@
   }
   {{- with .Description }}, "description": {{ . | jsonify }}{{ end }}
   {{- with .Params.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
+}
+</script>
+{{ else if .IsSection }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ .Title | jsonify }},
+  "url": {{ .Permalink | jsonify }},
+  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ printf "Kumpulan artikel tentang %s" .Title | jsonify }}{{ end }},
+  "numberOfItems": {{ len .Pages }}
 }
 </script>
 {{ end }}

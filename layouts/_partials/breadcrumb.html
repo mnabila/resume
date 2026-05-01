@@ -1,0 +1,40 @@
+{{- $items := slice (dict "name" "Home" "url" site.BaseURL) -}}
+{{- if .Parent -}}
+  {{- range .Ancestors.Reverse -}}
+    {{- if not .IsHome -}}
+      {{- $items = $items | append (dict "name" .LinkTitle "url" .Permalink) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $items = $items | append (dict "name" .LinkTitle "url" .Permalink) -}}
+
+<nav aria-label="Breadcrumb" class="text-sm text-gray-500 -mb-2">
+  <ol class="flex flex-wrap items-center gap-1">
+    {{- range $i, $item := $items -}}
+      {{- if $i }}<li class="text-gray-300">/</li>{{ end -}}
+      {{- if eq $i (sub (len $items) 1) }}
+        <li class="text-gray-700 font-medium truncate max-w-[300px]">{{ $item.name }}</li>
+      {{- else }}
+        <li><a href="{{ $item.url }}" class="hover:text-accent transition-colors">{{ $item.name }}</a></li>
+      {{- end -}}
+    {{- end -}}
+  </ol>
+</nav>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{- range $i, $item := $items -}}
+    {{ if $i }},{{ end }}
+    {
+      "@type": "ListItem",
+      "position": {{ add $i 1 }},
+      "name": {{ $item.name | jsonify }},
+      "item": {{ $item.url | jsonify }}
+    }
+    {{- end -}}
+  ]
+}
+</script>

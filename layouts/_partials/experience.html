@@ -30,7 +30,7 @@
           </ul>
           <ul class="flex flex-wrap items-center pt-2 gap-2">
             {{ range $tech := .Params.technologies }}
-              <div class="text-xs px-2 py-1 rounded-sm bg-gray-800 text-gray-100 font-mono">#{{ $tech }}</div>
+              <li class="text-xs px-2 py-1 rounded-sm bg-gray-800 text-gray-100 font-mono">#{{ $tech }}</li>
             {{ end }}
           </ul>
         </div>

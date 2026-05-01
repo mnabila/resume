@@ -1,35 +1,35 @@
-<section id="header">
-  <nav class="relative pb-2 border-b border-dashed border-gray-300 text-sm font-medium">
+<header>
+  <nav aria-label="Main navigation" class="relative pb-2 border-b border-dashed border-gray-300 text-sm font-medium">
     <div class="flex items-center justify-between">
       <!-- Hamburger button (mobile only) -->
       <button id="menu-toggle" class="md:hidden p-1" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg class="h-6 w-6" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg class="h-6 w-6" id="menu-icon-open" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
-        <svg class="h-6 w-6 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg class="h-6 w-6 hidden" id="menu-icon-close" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
 
       <!-- Menu links (desktop only) -->
       <div class="hidden md:flex items-center gap-4">
-        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <a href="/"{{ if .IsHome }} aria-current="page"{{ end }} class="hover:text-accent transition-colors">Home</a>
         <a href="/#experience" class="hover:text-accent transition-colors">Experience</a>
         {{ with .Site.GetPage "certificate" }}{{ if .Pages }}
         <a href="/#certificate" class="hover:text-accent transition-colors">Certification</a>
         {{ end }}{{ end }}
         <a href="/#skill" class="hover:text-accent transition-colors">Skill</a>
         {{ with .Site.GetPage "project" }}{{ if .Pages }}
-        <a href="/project/" class="hover:text-accent transition-colors">Project</a>
+        <a href="/project/"{{ if eq $.Section "project" }} aria-current="true"{{ end }} class="hover:text-accent transition-colors">Project</a>
         {{ end }}{{ end }}
         {{ with .Site.GetPage "blog" }}{{ if .Pages }}
-        <a href="/blog/" class="hover:text-accent transition-colors">Blog</a>
+        <a href="/blog/"{{ if eq $.Section "blog" }} aria-current="true"{{ end }} class="hover:text-accent transition-colors">Blog</a>
         {{ end }}{{ end }}
       </div>
 
       <!-- Social icons (always visible) -->
       <div class="flex items-center gap-2">
-        <a href="{{ .Site.Params.social.email }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="Email" aria-label="Email">
+        <a href="{{ .Site.Params.social.email }}" class="rounded-md border border-dashed border-gray-300" title="Email" aria-label="Email">
           {{ partial "icon/email.html" (dict "class" "h-6 w-6") . }}
         </a>
         <a href="{{ .Site.Params.social.github }}" class="rounded-md border border-dashed border-gray-300" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
@@ -48,18 +48,18 @@
     </div>
 
     <!-- Mobile dropdown (menu links only) -->
-    <div id="mobile-menu" class="hidden md:hidden flex-col gap-2 pt-3 pb-1">
-      <a href="/" class="hover:text-accent transition-colors">Home</a>
-      <a href="/#experience" class="hover:text-accent transition-colors">Experience</a>
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-2 pt-3 pb-1" role="menu">
+      <a href="/"{{ if .IsHome }} aria-current="page"{{ end }} class="hover:text-accent transition-colors" role="menuitem">Home</a>
+      <a href="/#experience" class="hover:text-accent transition-colors" role="menuitem">Experience</a>
       {{ with .Site.GetPage "certificate" }}{{ if .Pages }}
-      <a href="/#certificate" class="hover:text-accent transition-colors">Certification</a>
+      <a href="/#certificate" class="hover:text-accent transition-colors" role="menuitem">Certification</a>
       {{ end }}{{ end }}
-      <a href="/#skill" class="hover:text-accent transition-colors">Skill</a>
+      <a href="/#skill" class="hover:text-accent transition-colors" role="menuitem">Skill</a>
       {{ with .Site.GetPage "project" }}{{ if .Pages }}
-      <a href="/project/" class="hover:text-accent transition-colors">Project</a>
+      <a href="/project/"{{ if eq $.Section "project" }} aria-current="true"{{ end }} class="hover:text-accent transition-colors" role="menuitem">Project</a>
       {{ end }}{{ end }}
       {{ with .Site.GetPage "blog" }}{{ if .Pages }}
-      <a href="/blog/" class="hover:text-accent transition-colors">Blog</a>
+      <a href="/blog/"{{ if eq $.Section "blog" }} aria-current="true"{{ end }} class="hover:text-accent transition-colors" role="menuitem">Blog</a>
       {{ end }}{{ end }}
     </div>
   </nav>
@@ -81,21 +81,28 @@
   <div class="flex flex-col-reverse md:flex-row md:items-center gap-2 md:gap-4 border-b border-gray border-dashed border-spacing-lg md:px-8 mt-4 md:mt-0 md:py-4">
     <div class="flex-1 flex flex-col-reverse md:flex-col gap-2">
       <div>
+        {{ if .IsHome }}
         <h1 class="text-xl md:text-2xl font-serif font-bold">
           <a href="/">{{ .Site.Params.author.name }}</a>
         </h1>
+        {{ else }}
+        <p class="text-xl md:text-2xl font-serif font-bold">
+          <a href="/">{{ .Site.Params.author.name }}</a>
+        </p>
+        {{ end }}
         <p class="text-sm md:text-base leading-relaxed py-2 max-w-[60ch]">
           {{ .Site.Params.author.description }}
         </p>
       </div>
     </div>
     <div class="relative mb-4 md:mb-0 mx-auto size-44 border-2 border-gray-600 rounded-full">
-      {{ $imgSrc := .Site.Params.author.image }}
-      {{ with resources.Get .Site.Params.author.image }}
-        {{ $imgSrc = .RelPermalink }}
-      {{ end }}
-      <img src="{{ $imgSrc }}" alt="{{ .Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="lazy" decoding="async">
+      {{- $imgSrc := .Site.Params.author.image -}}
+      {{- with resources.Get .Site.Params.author.image -}}
+        {{- $resized := .Fill "288x288 webp" -}}
+        <img src="{{ $resized.RelPermalink }}" alt="{{ $.Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="lazy" decoding="async">
+      {{- else -}}
+        <img src="{{ $imgSrc }}" alt="{{ .Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="lazy" decoding="async">
+      {{- end -}}
     </div>
   </div>
-  </div>
-</section>
+</header>
