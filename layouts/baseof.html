@@ -11,7 +11,7 @@
       {{ if not .IsHome }}
         {{ partial "breadcrumb.html" . }}
       {{ end }}
-      <main id="main-content" class="flex flex-col gap-8">
+      <main id="main-content" class="flex flex-col gap-12">
         {{ block "main" . }}{{ end }}
       </main>
       {{ partial "footer.html" . }}

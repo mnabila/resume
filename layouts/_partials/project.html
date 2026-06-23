@@ -5,7 +5,7 @@
   {{ with .Params.description }}
   <p class="text-[#A8A29E]">{{ . }}</p>
   {{ end }}
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
     {{ range first 6 $pages }}
       {{ partial "card/project.html" . }}
     {{ end }}
