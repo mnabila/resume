@@ -1,8 +1,14 @@
 {{ define "main" }}
   <h2 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h2>
   {{ with .Params.description }}
-  <p class="text-gray-600">{{ . }}</p>
+  <p class="text-[#A8A29E]">{{ . }}</p>
   {{ end }}
 
-  {{ partial "pagination.html" (dict "page" . "card" "card/project.html") }}
+  <div class="columns-1 md:columns-2 gap-4 mt-4">
+    {{ range sort .Pages "Params.date" "desc" }}
+      <div class="break-inside-avoid mb-4">
+        {{ partial "card/project.html" . }}
+      </div>
+    {{ end }}
+  </div>
 {{ end }}

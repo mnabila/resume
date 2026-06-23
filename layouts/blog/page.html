@@ -1,25 +1,25 @@
 {{ define "main" }}
   <article>
     {{/* Article Header */}}
-    <header class="border-b border-dashed border-gray-300 pb-6 mb-6">
+    <header class="border-b border-dashed border-[#44403C] pb-6 mb-6">
       <h1 class="text-2xl md:text-3xl font-serif font-bold leading-tight">{{ .Title }}</h1>
-      <div class="flex flex-wrap items-center gap-3 mt-3 text-sm text-gray-500">
+      <div class="flex flex-wrap items-center gap-3 mt-3 text-sm text-[#A8A29E]">
         {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
         {{ $dateHuman := .Date | time.Format ":date_long" }}
         <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
         {{ if ne .Lastmod .Date }}
-        <span class="text-gray-300">·</span>
+        <span class="text-[#57534E]">·</span>
         {{ $updatedMachine := .Lastmod | time.Format "2006-01-02T15:04:05-07:00" }}
         {{ $updatedHuman := .Lastmod | time.Format ":date_long" }}
         <span>Updated <time datetime="{{ $updatedMachine }}">{{ $updatedHuman }}</time></span>
         {{ end }}
-        <span class="text-gray-300">·</span>
+        <span class="text-[#57534E]">·</span>
         <span>{{ .ReadingTime }} min read</span>
       </div>
       {{ with .GetTerms "tags" }}
       <ul class="flex flex-wrap items-center gap-2 mt-3">
         {{ range . }}
-        <li><a href="{{ .RelPermalink }}" class="text-xs px-2 py-0.5 rounded-sm bg-gray-200 font-mono uppercase hover:bg-gray-300 transition-colors">{{ .LinkTitle }}</a></li>
+        <li><a href="{{ .RelPermalink }}" class="text-xs px-2 py-0.5 rounded-sm bg-[#44403C] text-[#D6D3D1] font-mono uppercase hover:bg-[#57534E] transition-colors">{{ .LinkTitle }}</a></li>
         {{ end }}
       </ul>
       {{ end }}
@@ -27,8 +27,8 @@
 
     {{/* Table of Contents — mobile (collapsible) */}}
     {{ if .TableOfContents }}
-    <details class="lg:hidden border border-dashed border-gray-300 rounded-md mb-6">
-      <summary class="cursor-pointer px-4 py-3 text-sm font-serif font-semibold text-gray-600 select-none">On this page</summary>
+    <details class="lg:hidden border border-dashed border-[#44403C] rounded-md mb-6">
+      <summary class="cursor-pointer px-4 py-3 text-sm font-serif font-semibold text-[#A8A29E] select-none">On this page</summary>
       <nav class="toc px-4 pb-4 text-sm">
         {{ .TableOfContents }}
       </nav>
@@ -44,46 +44,24 @@
       {{/* Table of Contents — desktop sidebar */}}
       {{ if .TableOfContents }}
       <aside class="hidden lg:block w-56 shrink-0">
-        <nav class="toc sticky top-8 text-sm border-l border-dashed border-gray-300 pl-4">
-          <p class="font-serif font-semibold text-xs uppercase tracking-wide text-gray-400 mb-2">On this page</p>
+        <nav class="toc sticky top-8 text-sm border-l border-dashed border-[#44403C] pl-4">
+          <p class="font-serif font-semibold text-xs uppercase tracking-wide text-[#78716C] mb-2">On this page</p>
           {{ .TableOfContents }}
         </nav>
       </aside>
       {{ end }}
     </div>
 
-    {{/* Related Posts */}}
-    {{ $related := .Site.RegularPages.Related . | first 3 }}
-    {{ with $related }}
-    <section class="mt-10 pt-6 border-t border-dashed border-gray-300">
-      <h2 class="text-lg font-serif font-bold mb-4">Artikel Terkait</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {{ range . }}
-        <a href="{{ .RelPermalink }}" class="group p-4 rounded-md border border-gray-200 hover:border-accent hover:bg-accent/5 transition-colors">
-          <span class="text-sm font-serif font-semibold text-gray-700 group-hover:text-accent line-clamp-2">{{ .Title }}</span>
-          <span class="block mt-1 text-xs text-gray-400">{{ .Date.Format "Jan 2006" }}</span>
-        </a>
-        {{ end }}
-      </div>
-    </section>
-    {{ end }}
-
-    {{/* Previous / Next Post */}}
-    {{ if or .PrevInSection .NextInSection }}
-    <section class="mt-10 pt-6 border-t border-dashed border-gray-300">
+    {{/* Other Articles */}}
+    {{ $other := .Site.RegularPages.Related . | first 6 }}
+    {{ with $other }}
+    <section class="mt-10 pt-6 border-t border-dashed border-[#44403C]">
       <h2 class="text-lg font-serif font-bold mb-4">Artikel Lainnya</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {{ with .NextInSection }}
-        <a href="{{ .RelPermalink }}" class="group p-4 rounded-md border border-gray-200 hover:border-accent hover:bg-accent/5 transition-colors">
-          <span class="text-sm font-serif font-semibold text-gray-700 group-hover:text-accent line-clamp-2">{{ .Title }}</span>
-          <span class="block mt-1 text-xs text-gray-400">{{ .Date.Format "Jan 2006" }}</span>
-        </a>
-        {{ end }}
-        {{ with .PrevInSection }}
-        <a href="{{ .RelPermalink }}" class="group p-4 rounded-md border border-gray-200 hover:border-accent hover:bg-accent/5 transition-colors">
-          <span class="text-sm font-serif font-semibold text-gray-700 group-hover:text-accent line-clamp-2">{{ .Title }}</span>
-          <span class="block mt-1 text-xs text-gray-400">{{ .Date.Format "Jan 2006" }}</span>
-        </a>
+      <div class="columns-1 md:columns-3 gap-4">
+        {{ range . }}
+        <div class="break-inside-avoid">
+          {{ partial "card/blog.html" . }}
+        </div>
         {{ end }}
       </div>
     </section>

@@ -5,6 +5,8 @@
   --font-sans: "Manrope", system-ui, sans-serif;
   --font-serif: "Fraunces", "Georgia", serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-accent: #EA580C;
+  --color-accent-hover: #FB923C;
 }
 
 @layer base {
@@ -12,6 +14,7 @@
     font-family: theme(fontFamily.sans);
     font-optical-sizing: auto;
     scroll-behavior: smooth;
+    color: #D6D3D1;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -30,8 +33,8 @@
     overflow: hidden;
     z-index: 100;
     padding: 0.5rem 1rem;
-    background: #1a1a1a;
-    color: #fff;
+    background: #292524;
+    color: #D6D3D1;
     font-size: 0.875rem;
     font-weight: 600;
     text-decoration: none;
@@ -71,7 +74,7 @@
   .prose {
     max-width: none;
     line-height: 1.8;
-    color: #1a1a1a;
+    color: #D6D3D1;
   }
 
   .prose h1,
@@ -89,7 +92,7 @@
   }
 
   .prose h1 { font-size: 1.875rem; }
-  .prose h2 { font-size: 1.5rem; border-bottom: 1px dashed #d1d5db; padding-bottom: 0.5rem; }
+  .prose h2 { font-size: 1.5rem; border-bottom: 1px dashed #44403C; padding-bottom: 0.5rem; }
   .prose h3 { font-size: 1.25rem; }
   .prose h4 { font-size: 1.125rem; }
 
@@ -98,13 +101,13 @@
   }
 
   .prose a {
-    color: #C2410C;
+    color: #EA580C;
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 0.15s;
   }
   .prose a:hover {
-    color: #9a3412;
+    color: #FB923C;
   }
 
   .prose strong {
@@ -116,11 +119,11 @@
   }
 
   .prose blockquote {
-    border-left: 3px solid #C2410C;
+    border-left: 3px solid #EA580C;
     padding: 0.5em 1em;
     margin: 1.5em 0;
-    color: #4b5563;
-    background: #fafaf8;
+    color: #A8A29E;
+    background: #292524;
     border-radius: 0 0.375rem 0.375rem 0;
   }
 
@@ -154,7 +157,7 @@
 
   .prose hr {
     border: none;
-    border-top: 1px dashed #d1d5db;
+    border-top: 1px dashed #44403C;
     margin: 2em 0;
   }
 
@@ -172,7 +175,7 @@
   .prose figcaption {
     text-align: center;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: #A8A29E;
     margin-top: 0.5em;
   }
 
@@ -186,12 +189,12 @@
   .prose thead th {
     text-align: left;
     font-weight: 600;
-    border-bottom: 2px solid #d1d5db;
+    border-bottom: 2px solid #44403C;
     padding: 0.5em 0.75em;
   }
 
   .prose tbody td {
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #3A3632;
     padding: 0.5em 0.75em;
   }
 
@@ -203,7 +206,7 @@
   .prose code {
     font-family: theme(fontFamily.mono);
     font-size: 0.875em;
-    background: #f3f4f6;
+    background: #1C1917;
     padding: 0.15em 0.4em;
     border-radius: 0.25rem;
     word-break: break-word;
@@ -223,7 +226,7 @@
     margin: 1.5em 0;
     border-radius: 0.5rem;
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #44403C;
   }
 
   .prose .highlight pre {
@@ -233,13 +236,13 @@
     font-family: theme(fontFamily.mono);
     font-size: 0.875rem;
     line-height: 1.6;
-    background: #f9f8f6;
-    color: #4a4a4a;
+    background: #1C1917;
+    color: #D6D3D1;
   }
 
   /* Line numbers */
   .prose .highlight .lnt {
-    color: #b8b8b8;
+    color: #57534E;
     padding-right: 1em;
     user-select: none;
   }
@@ -251,16 +254,16 @@
   .chroma .c1,
   .chroma .cs,
   .chroma .cp,
-  .chroma .cpf { color: #b0aaa0; font-style: italic; }
+  .chroma .cpf { color: #78716C; font-style: italic; }
 
   .chroma .k,
   .chroma .kc,
   .chroma .kd,
   .chroma .kn,
   .chroma .kp,
-  .chroma .kr { color: #2a2a2a; font-weight: 600; }
+  .chroma .kr { color: #D6D3D1; font-weight: 600; }
 
-  .chroma .kt { color: #6b6360; }
+  .chroma .kt { color: #A8A29E; }
 
   .chroma .s,
   .chroma .sa,
@@ -275,7 +278,7 @@
   .chroma .sx,
   .chroma .sr,
   .chroma .s1,
-  .chroma .ss { color: #7a7268; }
+  .chroma .ss { color: #A8A29E; }
 
   .chroma .m,
   .chroma .mb,
@@ -283,36 +286,36 @@
   .chroma .mh,
   .chroma .mi,
   .chroma .il,
-  .chroma .mo { color: #8a7f74; }
+  .chroma .mo { color: #B3A89E; }
 
   .chroma .o,
-  .chroma .ow { color: #5a5550; }
+  .chroma .ow { color: #A8A29E; }
 
-  .chroma .na { color: #6b6360; }
+  .chroma .na { color: #A8A29E; }
 
   .chroma .nb,
-  .chroma .bp { color: #5a5550; }
+  .chroma .bp { color: #A8A29E; }
 
   .chroma .nf,
-  .chroma .fm { color: #3a3530; }
+  .chroma .fm { color: #D6D3D1; }
 
   .chroma .nc,
   .chroma .nn,
   .chroma .ni,
-  .chroma .ne { color: #2a2a2a; font-weight: 600; }
+  .chroma .ne { color: #D6D3D1; font-weight: 600; }
 
-  .chroma .nd { color: #9a9488; }
-  .chroma .nt { color: #2a2a2a; font-weight: 600; }
+  .chroma .nd { color: #78716C; }
+  .chroma .nt { color: #D6D3D1; font-weight: 600; }
 
   .chroma .nv,
   .chroma .vc,
   .chroma .vg,
-  .chroma .vi { color: #4a4a4a; }
+  .chroma .vi { color: #B3A89E; }
 
-  .chroma .gd { color: #8a7f74; text-decoration: line-through; }
-  .chroma .gi { color: #3a3530; font-weight: 600; }
+  .chroma .gd { color: #A8A29E; text-decoration: line-through; }
+  .chroma .gi { color: #D6D3D1; font-weight: 600; }
 
-  .chroma .p { color: #9a9488; }
+  .chroma .p { color: #78716C; }
 
   /* ── TOC styling (sidebar) ── */
   .toc ul {
@@ -332,7 +335,7 @@
   .toc a {
     display: block;
     padding: 0.2em 0;
-    color: #6b7280;
+    color: #A8A29E;
     text-decoration: none;
     font-size: 0.8125rem;
     line-height: 1.4;
@@ -340,7 +343,7 @@
   }
 
   .toc a:hover {
-    color: #C2410C;
+    color: #EA580C;
   }
 
 }

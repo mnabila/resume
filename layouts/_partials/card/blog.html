@@ -1,4 +1,4 @@
-<div class="overflow-hidden text-left border border-dashed border-gray-500 rounded-sm p-3 bg-white mb-4 break-inside-avoid">
+<div class="overflow-hidden text-left border border-dashed border-[#57534E] rounded-sm p-3 bg-[#292524] mb-4 break-inside-avoid">
   <div class="flex flex-col gap-2">
     <div>
       <a href="{{ .RelPermalink }}">
@@ -6,7 +6,7 @@
       </a>
       {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
       {{ $dateHuman := .Date | time.Format ":date_long" }}
-      <div class="text-xs text-gray-500 pt-2 flex items-center gap-1">
+      <div class="text-xs text-[#A8A29E] pt-2 flex items-center gap-1">
         <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
         <span>&middot;</span>
         <span>{{ .ReadingTime }} min read</span>
@@ -17,7 +17,7 @@
     <div>
       <ul class="flex flex-wrap items-center gap-2">
         {{ range . }}
-        <li><a href="{{ .RelPermalink }}" class="text-xs px-2 py-1 rounded-sm bg-gray-200 font-mono uppercase hover:bg-gray-300 transition-colors">{{ .LinkTitle }}</a></li>
+        <li><a href="{{ .RelPermalink }}" class="text-xs px-2 py-1 rounded-sm bg-[#44403C] text-[#D6D3D1] font-mono uppercase hover:bg-[#57534E] transition-colors">{{ .LinkTitle }}</a></li>
         {{ end }}
       </ul>
     </div>

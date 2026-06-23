@@ -10,26 +10,26 @@
   <section>
     <h1 class="text-xl md:text-2xl font-serif font-bold pb-2">{{ .Title }}</h1>
     {{ with .Description }}
-    <p class="text-gray-600 text-sm pb-4 border-b border-dashed border-gray-300 mb-6">{{ . }}</p>
+    <p class="text-[#A8A29E] text-sm pb-4 border-b border-dashed border-[#44403C] mb-6">{{ . }}</p>
     {{ else }}
-    <p class="text-gray-600 text-sm pb-4 border-b border-dashed border-gray-300 mb-6">Jelajahi artikel berdasarkan {{ .Title | lower }}.</p>
+    <p class="text-[#A8A29E] text-sm pb-4 border-b border-dashed border-[#44403C] mb-6">Jelajahi artikel berdasarkan {{ .Title | lower }}.</p>
     {{ end }}
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {{ range $visible }}
-        <div class="border border-dashed border-gray-300 rounded-md p-4">
+        <div class="border border-dashed border-[#44403C] rounded-md p-4">
           <a href="{{ .Page.RelPermalink }}" class="font-serif font-bold md:text-lg hover:underline">#{{ .Page.LinkTitle }}</a>
-          <span class="text-xs text-gray-400 font-mono">({{ .Count }} artikel)</span>
+          <span class="text-xs text-[#78716C] font-mono">({{ .Count }} artikel)</span>
           <ul class="mt-4 flex flex-col gap-1">
             {{ range first 3 .Pages }}
-              <li class="text-sm text-gray-600 flex items-center justify-between gap-2">
-                <a href="{{ .RelPermalink }}" class="hover:text-black transition-colors truncate">&rarr; {{ .Title }}</a>
-                <span class="text-xs text-gray-400 font-mono shrink-0">{{ .Date.Format "Jan 2006" }}</span>
+              <li class="text-sm text-[#A8A29E] flex items-center justify-between gap-2">
+                <a href="{{ .RelPermalink }}" class="hover:text-[#D6D3D1] transition-colors truncate">&rarr; {{ .Title }}</a>
+                <span class="text-xs text-[#78716C] font-mono shrink-0">{{ .Date.Format "Jan 2006" }}</span>
               </li>
             {{ end }}
           </ul>
           {{ if gt .Count 3 }}
-            <a href="{{ .Page.RelPermalink }}" class="inline-block mt-2 text-xs text-gray-400 font-mono hover:text-gray-600 transition-colors">+{{ sub .Count 3 }} lainnya</a>
+            <a href="{{ .Page.RelPermalink }}" class="inline-block mt-2 text-xs text-[#78716C] font-mono hover:text-[#D6D3D1] transition-colors">+{{ sub .Count 3 }} lainnya</a>
           {{ end }}
         </div>
       {{ end }}

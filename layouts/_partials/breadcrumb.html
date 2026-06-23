@@ -8,12 +8,12 @@
 {{- end -}}
 {{- $items = $items | append (dict "name" .LinkTitle "url" .Permalink) -}}
 
-<nav aria-label="Breadcrumb" class="text-sm text-gray-500 -mb-2">
+<nav aria-label="Breadcrumb" class="text-sm text-[#A8A29E] -mb-2">
   <ol class="flex flex-wrap items-center gap-1">
     {{- range $i, $item := $items -}}
-      {{- if $i }}<li class="text-gray-300">/</li>{{ end -}}
+      {{- if $i }}<li class="text-[#57534E]">/</li>{{ end -}}
       {{- if eq $i (sub (len $items) 1) }}
-        <li class="text-gray-700 font-medium truncate max-w-[300px]">{{ $item.name }}</li>
+        <li class="text-[#D6D3D1] font-medium truncate max-w-[300px]">{{ $item.name }}</li>
       {{- else }}
         <li><a href="{{ $item.url }}" class="hover:text-accent transition-colors">{{ $item.name }}</a></li>
       {{- end -}}
