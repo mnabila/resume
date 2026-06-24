@@ -31,8 +31,8 @@
     {
       "@type": "ListItem",
       "position": {{ add $i 1 }},
-      "name": {{ $item.name | jsonify }},
-      "item": {{ $item.url | jsonify }}
+      "name": "{{ $item.name | safeJS }}",
+      "item": "{{ $item.url | safeJS }}"
     }
     {{- end -}}
   ]
