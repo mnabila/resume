@@ -4,7 +4,6 @@ date = '2023-06-01'
 title = 'Acme Corp'
 type = 'experience'
 role = 'Senior Software Engineer'
-period = 'Jun 2023 — Present'
 period_begin = '2023-06-01'
 period_finish = ''
 location = 'San Francisco, CA'
@@ -16,6 +15,11 @@ tasks = [
   'Led migration from monolith to microservices architecture, reducing deployment times by 70%',
   'Mentored a team of 4 junior engineers through code reviews and pair programming sessions',
   'Established observability standards using OpenTelemetry, improving incident response time by 40%',
+]
+impact = [
+  'Reduced infrastructure costs by 25% through right-sizing Kubernetes workloads',
+  'Improved platform reliability from 99.5% to 99.95% uptime over 12 months',
+  'Established engineering best practices adopted across 5 product teams',
 ]
 +++
 

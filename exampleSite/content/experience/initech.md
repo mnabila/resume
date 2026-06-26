@@ -4,7 +4,6 @@ date = '2019-08-01'
 title = 'Initech'
 type = 'experience'
 role = 'Junior Software Engineer'
-period = 'Aug 2019 — Feb 2021'
 period_begin = '2019-08-01'
 period_finish = '2021-02-28'
 location = 'Austin, TX'
@@ -15,6 +14,11 @@ tasks = [
   'Developed internal tools automating manual data entry workflows, saving 20 hours/week',
   'Built and maintained RESTful APIs consumed by partner integrations',
   'Wrote comprehensive unit and integration tests achieving 85% code coverage',
+]
+impact = [
+  'Automated workflows saved the operations team approximately 20 hours per week',
+  'Partner API enabled 15 new integrations in the first 6 months',
+  'Test coverage increased from 35% to 85% across the Internal Tools codebase',
 ]
 +++
 

@@ -1,0 +1,1 @@
+{{- (time .period_begin).Format "January 2006" }} - {{ with .period_finish }}{{ (time .).Format "January 2006" }}{{ else }}Present{{ end -}}

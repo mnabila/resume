@@ -17,7 +17,7 @@
               </div>
               <span class="text-sm md:text-base font-mono text-[#A8A29E]">{{ .Params.degree }}{{ with .Params.score }} — {{ . }}{{ end }}</span>
             </div>
-            <span class="text-[#D6D3D1] font-mono text-sm">{{ .Params.period }}</span>
+            <span class="text-[#D6D3D1] font-mono text-sm">{{ partial "period.html" .Params }}</span>
           </div>
         </div>
       {{ end }}

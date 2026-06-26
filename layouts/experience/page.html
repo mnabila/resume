@@ -21,9 +21,7 @@
         <span class="font-mono text-[#D6D3D1]">{{ . }}</span>
         <span class="text-[#57534E]">·</span>
         {{ end }}
-        {{ with .Params.period }}
-        <span class="font-mono">{{ . }}</span>
-        {{ end }}
+        <span class="font-mono">{{ partial "period.html" .Params }}</span>
       </div>
       {{/* Technologies */}}
       {{ with .Params.technologies }}
@@ -40,8 +38,19 @@
       {{/* Tasks */}}
         {{ with .Params.tasks }}
         <div class="mb-8">
-          <h2 class="text-lg font-serif font-semibold mb-3">Responsibilities</h2>
-          <ul class="list-disc list-outside pl-4 flex flex-col gap-1.5">
+          <span class="text-xs font-mono uppercase text-[#A8A29E] tracking-wider">Contributions</span>
+          <ul class="pt-1 list-disc list-outside pl-4 flex flex-col gap-1.5">
+            {{ range . }}
+            <li class="text-[#D6D3D1]">{{ . }}</li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Impact */}}
+        {{ with .Params.impact }}
+        <div class="mb-8">
+          <span class="text-xs font-mono uppercase text-[#A8A29E] tracking-wider">Outcomes</span>
+          <ul class="pt-1 list-disc list-outside pl-4 flex flex-col gap-1.5">
             {{ range . }}
             <li class="text-[#D6D3D1]">{{ . }}</li>
             {{ end }}

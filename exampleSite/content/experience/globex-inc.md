@@ -4,7 +4,6 @@ date = '2021-03-01'
 title = 'Globex Inc'
 type = 'experience'
 role = 'Software Engineer'
-period = 'Mar 2021 — May 2023'
 period_begin = '2021-03-01'
 period_finish = '2023-05-31'
 location = 'New York, NY'
@@ -16,6 +15,11 @@ tasks = [
   'Developed RESTful and GraphQL APIs serving mobile and web clients',
   'Implemented CI/CD pipelines with GitHub Actions, reducing release cycle from weekly to daily',
   'Optimized database queries resulting in 60% reduction in API response latency',
+]
+impact = [
+  'Grew dashboard daily active users from 2,000 to 10,000 within the first year',
+  'Reduced average page load time from 4.2s to 1.1s through performance optimization',
+  'Decreased production incidents by 50% after implementing automated canary deployments',
 ]
 +++
 

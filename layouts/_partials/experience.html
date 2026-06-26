@@ -21,13 +21,28 @@
                 <span class="text-xs font-mono text-[#A8A29E]">{{ . }}</span>
               {{ end }}
             </div>
-            <span class="text-[#D6D3D1] font-mono text-sm md:text-base">{{ .Params.period }}</span>
+            <span class="text-[#D6D3D1] font-mono text-sm md:text-base">{{ partial "period.html" .Params }}</span>
           </div>
-          <ul class="pt-2 list-disc list-outside pl-4">
-            {{ range $task := .Params.tasks }}
-              <li class="text-sm md:text-base text-[#D6D3D1]">{{ $task }}</li>
-            {{ end }}
-          </ul>
+          {{ with .Params.tasks }}
+          <div class="pt-2">
+            <span class="text-xs font-mono uppercase text-[#A8A29E] tracking-wider">Contributions</span>
+            <ul class="pt-1 list-disc list-outside pl-4">
+              {{ range . }}
+                <li class="text-sm md:text-base text-[#D6D3D1]">{{ . }}</li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
+          {{ with .Params.impact }}
+          <div class="pt-2">
+            <span class="text-xs font-mono uppercase text-[#A8A29E] tracking-wider">Outcomes</span>
+            <ul class="pt-1 list-disc list-outside pl-4">
+              {{ range . }}
+                <li class="text-sm md:text-base text-[#D6D3D1]">{{ . }}</li>
+              {{ end }}
+            </ul>
+          </div>
+          {{ end }}
           <ul class="flex flex-wrap items-center pt-2 gap-2">
             {{ range $tech := .Params.technologies }}
               <li class="text-xs px-2 py-1 rounded-sm bg-[#44403C] text-[#D6D3D1] font-mono">#{{ $tech }}</li>
