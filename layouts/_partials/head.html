@@ -53,7 +53,7 @@
 <link rel="icon" href="/favicon.ico" />
 {{ end }}
 
-{{/* Google Analytics — deferred until after page load */}}
+{{/* Google Analytics - deferred until after page load */}}
 {{ if not hugo.IsServer }}
   {{ with .Site.Config.Services.GoogleAnalytics.ID }}
     {{ $gaID := . }}

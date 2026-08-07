@@ -3,7 +3,7 @@
 <section id="blog" data-reveal>
   <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Blog</h2>
   {{ with .Params.description }}
-  <p class="text-[#A8A29E]">{{ . }}</p>
+  <p class="text-muted">{{ . }}</p>
   {{ end }}
   <div class="columns-1 md:columns-3 gap-4 mt-4">
     {{ range first 6 $pages }}
@@ -12,7 +12,7 @@
   </div>
   {{ if gt (len $pages) 6 }}
     <div class="mt-4">
-      <a href="{{ .RelPermalink }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[#D6D3D1] bg-[#44403C] rounded-md hover:bg-[#57534E] transition-colors">
+      <a href="{{ .RelPermalink }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-ink bg-line rounded-lg hover:bg-line-strong transition-colors">
         <span>Show More</span>
         <span>&rarr;</span>
       </a>

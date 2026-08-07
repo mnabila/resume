@@ -2,7 +2,7 @@
   <section id="education" data-reveal>
     <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Education</h2>
     {{ with .Params.description }}
-    <p class="text-[#A8A29E]">{{ . }}</p>
+    <p class="text-muted">{{ . }}</p>
     {{ end }}
     <div class="relative flex flex-col gap-2 md:gap-4 mt-2">
       {{ range sort .Pages "Params.period_begin" "desc" }}
@@ -10,14 +10,14 @@
           <div class="flex flex-col md:flex-row items-start justify-between">
             <div>
               <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-2 md:py-0">
-                <h3 class="font-serif font-bold md:text-lg text-[#D6D3D1]">{{ .Title }}</h3>
+                <h3 class="font-serif font-bold md:text-lg text-ink">{{ .Title }}</h3>
                 <div class="flex items-center gap-2 pt-1 md:pt-0">
-                  <span class="text-xs px-2 py-1 rounded-sm bg-[#44403C] text-[#D6D3D1] font-mono uppercase">{{ .Params.location }}</span>
+                  <span class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ .Params.location }}</span>
                 </div>
               </div>
-              <span class="text-sm md:text-base font-mono text-[#A8A29E]">{{ .Params.degree }}{{ with .Params.score }} — {{ . }}{{ end }}</span>
+              <span class="text-sm md:text-base font-mono text-muted">{{ .Params.degree }}{{ with .Params.score }} - {{ . }}{{ end }}</span>
             </div>
-            <span class="text-[#D6D3D1] font-mono text-sm">{{ partial "period.html" .Params }}</span>
+            <span class="text-ink font-mono text-sm">{{ partial "period.html" .Params }}</span>
           </div>
         </div>
       {{ end }}

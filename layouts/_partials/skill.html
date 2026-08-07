@@ -2,21 +2,21 @@
   <section id="skill" data-reveal>
     <h2 class="text-xl md:text-2xl font-serif font-bold pb-2">Skill</h2>
     {{ with .Params.description }}
-    <p class="text-[#A8A29E]">{{ . }}</p>
+    <p class="text-muted">{{ . }}</p>
     {{ end }}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
       {{ range.Pages }}
-        <div class="overflow-hidden text-left border border-dashed border-[#57534E] rounded-sm p-3 bg-[#292524]">
+        <div class="overflow-hidden text-left border border-line rounded-lg p-4 bg-card">
           <div class="flex flex-col gap-2">
             <div>
-              <h3 class="md:text-lg font-serif font-bold capitalize pb-2 border-b border-dashed">{{ .Title }}</h3>
+              <h3 class="md:text-lg font-serif font-bold capitalize pb-2 border-b border-line">{{ .Title }}</h3>
               <p class="leading-normal py-2 text-sm">{{ .Params.description }}</p>
             </div>
             <div>
               <h4 class="font-semibold capitalize">Language</h4>
               <ul class="flex flex-wrap items-center pt-2 gap-2">
                 {{ range sort .Params.languages }}
-                  <li class="text-xs px-2 py-1 rounded-sm bg-[#44403C] text-[#D6D3D1] font-mono uppercase">{{ . }}</li>
+                  <li class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ . }}</li>
                 {{ end }}
               </ul>
             </div>
@@ -24,7 +24,7 @@
               <h4 class="font-semibold capitalize">Tools</h4>
               <ul class="flex flex-wrap items-center pt-2 gap-2">
                 {{ range sort .Params.tools }}
-                  <li class="text-xs px-2 py-1 rounded-sm bg-[#44403C] text-[#D6D3D1] font-mono uppercase">{{ . }}</li>
+                  <li class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ . }}</li>
                 {{ end }}
               </ul>
             </div>
