@@ -99,9 +99,9 @@
       {{- $imgSrc := .Site.Params.author.image -}}
       {{- with resources.Get .Site.Params.author.image -}}
         {{- $resized := .Fill "288x288 webp" -}}
-        <img src="{{ $resized.RelPermalink }}" alt="{{ $.Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="lazy" decoding="async">
+        <img src="{{ $resized.RelPermalink }}" alt="{{ $.Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="eager" fetchpriority="high" decoding="async">
       {{- else -}}
-        <img src="{{ $imgSrc }}" alt="{{ .Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="lazy" decoding="async">
+        <img src="{{ $imgSrc }}" alt="{{ .Site.Params.author.name }}" class="w-full h-full object-cover rounded-full" width="144" height="144" loading="eager" fetchpriority="high" decoding="async">
       {{- end -}}
     </div>
   </div>

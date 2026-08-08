@@ -4,9 +4,8 @@
     {{ if hugo.IsDevelopment }}
       <link rel="stylesheet" href="{{ .RelPermalink }}">
     {{ else }}
-      {{ with . | fingerprint }}
-        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-      {{ end }}
+      {{/* Inline the purged+minified CSS to remove the render-blocking request. */}}
+      <style>{{ .Content | safeCSS }}</style>
     {{ end }}
   {{ end }}
 {{ end }}

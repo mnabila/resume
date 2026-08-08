@@ -1,0 +1,26 @@
+{{- /* Self-hosted variable fonts. @font-face URLs are generated from Hugo
+       resources so the files are published and paths always match.
+       Manrope has no italic (falls back to synthesized italic, as with the
+       previous Google Fonts setup). */ -}}
+{{- $faces := slice
+  (dict "family" "Manrope"        "file" "manrope-latin-normal"        "style" "normal" "weight" "200 800" "preload" true)
+  (dict "family" "Fraunces"       "file" "fraunces-latin-normal"       "style" "normal" "weight" "100 900" "preload" true)
+  (dict "family" "JetBrains Mono" "file" "jetbrains-mono-latin-normal" "style" "normal" "weight" "100 800" "preload" false)
+  (dict "family" "JetBrains Mono" "file" "jetbrains-mono-latin-italic" "style" "italic" "weight" "100 800" "preload" false)
+-}}
+{{- range $faces }}
+  {{- $f := . }}
+  {{- with resources.Get (printf "fonts/%s.woff2" $f.file) }}
+    {{- if $f.preload }}
+<link rel="preload" as="font" type="font/woff2" href="{{ .RelPermalink }}" crossorigin="anonymous" />
+    {{- end }}
+  {{- end }}
+{{- end }}
+<style>
+{{- range $faces }}
+  {{- $f := . }}
+  {{- with resources.Get (printf "fonts/%s.woff2" $f.file) }}
+@font-face{font-family:"{{ $f.family }}";font-style:{{ $f.style }};font-weight:{{ $f.weight }};font-display:swap;src:url("{{ .RelPermalink }}") format("woff2")}
+  {{- end }}
+{{- end }}
+</style>

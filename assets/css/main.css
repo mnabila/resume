@@ -84,6 +84,17 @@
     }
   }
 
+  /* Skip layout/paint of off-screen home sections until scrolled near.
+     IDs only exist on the homepage, so this scopes itself. */
+  #education,
+  #certificate,
+  #skill,
+  #project,
+  #blog {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
+  }
+
   /* Prose typography (article reading view) */
   .prose {
     max-width: none;

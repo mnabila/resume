@@ -1,1 +1,17 @@
-<img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title }}title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- $img := .Page.Resources.GetMatch .Destination -}}
+{{- if and $img (eq $img.MediaType.MainType "image") (ne $img.MediaType.SubType "svg+xml") -}}
+  {{- /* Convert to WebP once, then generate responsive downscaled variants. */ -}}
+  {{- $orig := $img -}}
+  {{- if ne $img.MediaType.SubType "webp" -}}{{- $orig = $img.Process "webp" -}}{{- end -}}
+  {{- $srcset := slice -}}
+  {{- range (slice 480 768 1200) -}}
+    {{- if lt . $orig.Width -}}
+      {{- $r := $orig.Resize (printf "%dx webp" .) -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $r.RelPermalink $r.Width) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $orig.RelPermalink $orig.Width) -}}
+  <img src="{{ $orig.RelPermalink }}" srcset="{{ delimit $srcset ", " }}" sizes="(max-width: 768px) 100vw, 700px" alt="{{ .Text }}"{{ with .Title }} title="{{ . }}"{{ end }} width="{{ $orig.Width }}" height="{{ $orig.Height }}" loading="lazy" decoding="async">
+{{- else -}}
+  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">
+{{- end -}}
