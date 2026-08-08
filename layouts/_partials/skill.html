@@ -16,7 +16,7 @@
               <h4 class="font-semibold capitalize">Language</h4>
               <ul class="flex flex-wrap items-center pt-2 gap-2">
                 {{ range sort .Params.languages }}
-                  <li class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ . }}</li>
+                  <li class="text-xs px-2 py-1 rounded-md border border-line-strong bg-page text-muted font-mono uppercase">{{ . }}</li>
                 {{ end }}
               </ul>
             </div>
@@ -24,7 +24,7 @@
               <h4 class="font-semibold capitalize">Tools</h4>
               <ul class="flex flex-wrap items-center pt-2 gap-2">
                 {{ range sort .Params.tools }}
-                  <li class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ . }}</li>
+                  <li class="text-xs px-2 py-1 rounded-md border border-line-strong bg-page text-muted font-mono uppercase">{{ . }}</li>
                 {{ end }}
               </ul>
             </div>
