@@ -1,11 +1,13 @@
 {{ define "main" }}
-  <h1 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h1>
-  {{ with .Params.description }}
-  <p class="text-muted mb-2">{{ . }}</p>
-  {{ else }}
-  <p class="text-muted mb-2">Semua artikel tentang {{ .Title }}.</p>
-  {{ end }}
-  <p class="text-sm text-faint mb-4">{{ len .Pages }} artikel</p>
+  <div>
+    <h1 class="text-xl md:text-2xl font-bold font-sans">{{ .Title }}</h1>
+    {{ with .Params.description }}
+    <p class="text-muted mt-2">{{ . }}</p>
+    {{ else }}
+    <p class="text-muted mt-2">Semua artikel tentang {{ .Title }}.</p>
+    {{ end }}
+    <p class="text-sm text-faint mt-1">{{ len .Pages }} artikel</p>
+  </div>
 
   {{ $card := "card/blog.html" }}
   {{ if in (slice "language" "tool") .Data.Singular }}
