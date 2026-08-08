@@ -1,19 +1,23 @@
 <div class="overflow-hidden text-left border border-line rounded-lg bg-card hover:border-line-strong transition-colors">
-  {{/* Thumbnail: bundle image when provided, warm gradient fallback otherwise */}}
-  {{ $thumb := "" }}
-  {{ with .Params.image }}
-    {{ with $.Resources.GetMatch . }}
-      {{ $thumb = .Fill "640x192 webp q85" }}
-    {{ end }}
-  {{ end }}
-  <a href="{{ .RelPermalink }}" class="block" aria-hidden="true" tabindex="-1">
-    {{ if $thumb }}
-      <img src="{{ $thumb.RelPermalink }}" alt="" width="640" height="192" loading="lazy" decoding="async" class="w-full h-24 object-cover border-b border-line" />
-    {{ else }}
-      <div class="relative h-24 border-b border-line bg-gradient-to-br from-[#3C3020] to-[#282828]">
-        <span class="absolute left-4 bottom-2 font-mono text-xs text-accent-hover lowercase">{{ .Title }}</span>
+  {{/* Header: auto-generated to mirror the thumbnail design (terminal path + tech tags + default project icon) */}}
+  {{ $slug := or .File.ContentBaseName (.Title | urlize) }}
+  {{ $tags := slice }}
+  {{ range .Params.languages }}{{ $tags = $tags | append . }}{{ end }}
+  {{ range .Params.tools }}{{ $tags = $tags | append . }}{{ end }}
+  {{ $tagline := delimit (first 4 $tags) " · " }}
+  {{ $bg := "background-color:#1D2021;background-image:radial-gradient(circle at 86% 50%,rgba(142,192,124,0.12),transparent 55%),radial-gradient(rgba(255,255,255,0.05) 1px,transparent 1px);background-size:100% 100%,16px 16px;" | safeCSS }}
+  <a href="{{ .RelPermalink }}" class="relative flex items-center gap-3 w-full aspect-[10/3] overflow-hidden border-b border-line px-4" style="{{ $bg }}" aria-hidden="true" tabindex="-1">
+    <div class="min-w-0 flex-1">
+      <div class="font-mono font-bold text-xl md:text-2xl leading-none truncate">
+        <span class="text-accent">~/</span><span class="text-ink">{{ $slug }}</span>
       </div>
-    {{ end }}
+      {{ with $tagline }}
+      <div class="mt-2 font-mono text-[11px] text-accent/70 truncate">{{ . }}</div>
+      {{ end }}
+    </div>
+    <div class="shrink-0 text-accent">
+      {{ partial "icon/project.html" (dict "class" "h-10 w-10 md:h-12 md:w-12") }}
+    </div>
   </a>
   <div class="p-4 flex flex-col gap-2">
     <div>
