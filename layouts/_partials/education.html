@@ -11,9 +11,12 @@
             <div>
               <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-2 md:py-0">
                 <h3 class="font-serif font-bold md:text-lg text-ink">{{ .Title }}</h3>
-                <div class="flex items-center gap-2 pt-1 md:pt-0">
-                  <span class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ .Params.location }}</span>
-                </div>
+                {{ with .Params.location }}
+                <span class="flex items-center gap-1 text-xs md:text-sm font-mono text-muted pt-1 md:pt-0">
+                  {{ partial "icon/location.html" (dict "class" "h-3.5 w-3.5 shrink-0 text-accent") }}
+                  {{ . }}
+                </span>
+                {{ end }}
               </div>
               <span class="text-sm md:text-base font-mono text-muted">{{ .Params.degree }}{{ with .Params.score }} - {{ . }}{{ end }}</span>
             </div>

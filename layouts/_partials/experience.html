@@ -16,10 +16,15 @@
                   <span class="text-xs px-2 py-1 rounded-md border border-line text-muted font-mono uppercase">{{ .Params.worktype }}</span>
                 </div>
               </div> 
-              <span class="text-sm md:text-base font-mono text">{{ .Params.role }}</span>
-              {{ with .Params.location }}
-                <span class="text-xs font-mono text-muted">{{ . }}</span>
-              {{ end }}
+              <span class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                <span class="text-sm md:text-base font-mono text-ink">{{ .Params.role }}</span>
+                {{ with .Params.location }}
+                <span class="flex items-center gap-1 text-xs md:text-sm font-mono text-muted">
+                  {{ partial "icon/location.html" (dict "class" "h-3.5 w-3.5 shrink-0 text-accent") }}
+                  {{ . }}
+                </span>
+                {{ end }}
+              </span>
             </div>
             <span class="text-ink font-mono text-sm md:text-base">{{ partial "period.html" .Params }}</span>
           </div>
