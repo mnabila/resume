@@ -12,10 +12,15 @@
 {{- end }}
 {{- end }}
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap" /></noscript>
+{{/* Self-hosted fonts: @font-face rules + preload of render-critical faces. */}}
+{{ partial "head/fonts.html" . }}
+
+{{/* Preload the header avatar (LCP element, shown site-wide). */}}
+{{ with resources.Get .Site.Params.author.image }}
+  {{ with .Fill "288x288 webp" }}
+<link rel="preload" as="image" fetchpriority="high" href="{{ .RelPermalink }}" />
+  {{ end }}
+{{ end }}
 
 {{- $ogImage := "" -}}
 {{- if .Params.image -}}
@@ -77,75 +82,62 @@
 {{ end }}
 
 {{/* JSON-LD Structured Data */}}
+{{- /* Build each JSON-LD block as a Go data structure and emit it directly.
+     Inside <script type="application/ld+json"> the html/template JSON escaper
+     serializes it exactly once - piping through jsonify here would double-encode
+     every value (e.g. "name": "\"Nabila\""), which breaks Rich Results. */ -}}
 {{ if .IsHome }}
+{{- $ld := dict
+    "@context" "https://schema.org"
+    "@type" "Person"
+    "name" .Site.Params.author.name
+    "url" .Site.Home.Permalink
+    "description" .Site.Params.author.description -}}
+{{- $sameAs := slice -}}
+{{- with .Site.Params.social.github }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+{{- with .Site.Params.social.linkedin }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+{{- with .Site.Params.social.gitlab }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+{{- with $sameAs }}{{ $ld = merge $ld (dict "sameAs" .) }}{{ end -}}
+{{- with .Site.Params.author.image }}{{ $img := . }}{{ with resources.Get . }}{{ $img = .Permalink }}{{ else }}{{ $img = $img | absURL }}{{ end }}{{ $ld = merge $ld (dict "image" $img) }}{{ end -}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": {{ .Site.Params.author.name | jsonify }},
-  "url": {{ .Site.BaseURL | jsonify }},
-  "description": {{ .Site.Params.author.description | jsonify }}
-  {{- with .Site.Params.social.github }}, "sameAs": [{{ . | jsonify }}
-    {{- with $.Site.Params.social.linkedin }}, {{ . | jsonify }}{{ end }}
-    {{- with $.Site.Params.social.gitlab }}, {{ . | jsonify }}{{ end }}
-  ]{{ end }}
-  {{- with .Site.Params.author.image }}{{ $img := . }}{{ with resources.Get . }}{{ $img = .Permalink }}{{ else }}{{ $img = $img | absURL }}{{ end }}, "image": {{ $img | jsonify }}{{ end }}
-}
+{{ $ld }}
 </script>
 {{ else if and .IsPage (eq .Type "blog") }}
+{{- $ld := dict
+    "@context" "https://schema.org"
+    "@type" "BlogPosting"
+    "headline" .Title
+    "url" .Permalink
+    "datePublished" (.Date.Format "2006-01-02")
+    "author" (dict "@type" "Person" "name" .Site.Params.author.name "url" .Site.Home.Permalink)
+    "publisher" (dict "@type" "Person" "name" .Site.Params.author.name)
+    "inLanguage" "id"
+    "wordCount" .WordCount
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink) -}}
+{{- with .Lastmod }}{{ $ld = merge $ld (dict "dateModified" (.Format "2006-01-02")) }}{{ end -}}
+{{- with .Description }}{{ $ld = merge $ld (dict "description" .) }}{{ end -}}
+{{- with .Params.image }}{{ $ld = merge $ld (dict "image" (. | absURL)) }}{{ end -}}
+{{- with .Params.tags }}{{ $ld = merge $ld (dict "keywords" (delimit . ", ")) }}{{ end -}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": {{ .Title | jsonify }},
-  "url": {{ .Permalink | jsonify }},
-  "datePublished": {{ .Date.Format "2006-01-02" | jsonify }},
-  {{- with .Lastmod }}"dateModified": {{ .Format "2006-01-02" | jsonify }},{{ end }}
-  "author": {
-    "@type": "Person",
-    "name": {{ $.Site.Params.author.name | jsonify }},
-    "url": {{ $.Site.BaseURL | jsonify }}
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": {{ $.Site.Params.author.name | jsonify }}
-  },
-  "inLanguage": "id",
-  "wordCount": {{ .WordCount }}
-  {{- with .Description }}, "description": {{ . | jsonify }}{{ end }}
-  {{- with .Params.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
-  {{- with .Params.tags }}, "keywords": {{ delimit . ", " | jsonify }}{{ end }}
-  , "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": {{ $.Permalink | jsonify }}
-  }
-}
+{{ $ld }}
 </script>
 {{ else if and .IsPage (eq .Type "project") }}
+{{- $ld := dict
+    "@context" "https://schema.org"
+    "@type" "CreativeWork"
+    "name" .Title
+    "url" .Permalink
+    "author" (dict "@type" "Person" "name" .Site.Params.author.name) -}}
+{{- with .Description }}{{ $ld = merge $ld (dict "description" .) }}{{ end -}}
+{{- with .Params.image }}{{ $ld = merge $ld (dict "image" (. | absURL)) }}{{ end -}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": {{ .Title | jsonify }},
-  "url": {{ .Permalink | jsonify }},
-  "author": {
-    "@type": "Person",
-    "name": {{ $.Site.Params.author.name | jsonify }}
-  }
-  {{- with .Description }}, "description": {{ . | jsonify }}{{ end }}
-  {{- with .Params.image }}, "image": {{ . | absURL | jsonify }}{{ end }}
-}
+{{ $ld }}
 </script>
 {{ else if .IsSection }}
+{{- $desc := .Description -}}
+{{- if not $desc }}{{ $desc = printf "Kumpulan artikel tentang %s" .Title }}{{ end -}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": {{ .Title | jsonify }},
-  "url": {{ .Permalink | jsonify }},
-  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ printf "Kumpulan artikel tentang %s" .Title | jsonify }}{{ end }},
-  "numberOfItems": {{ len .Pages }}
-}
+{{ dict "@context" "https://schema.org" "@type" "CollectionPage" "name" .Title "url" .Permalink "description" $desc "numberOfItems" (len .Pages) }}
 </script>
 {{ end }}
 

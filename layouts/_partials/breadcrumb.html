@@ -1,4 +1,4 @@
-{{- $items := slice (dict "name" "Home" "url" site.BaseURL) -}}
+{{- $items := slice (dict "name" "Home" "url" site.Home.Permalink) -}}
 {{- if .Parent -}}
   {{- range .Ancestors.Reverse -}}
     {{- if not .IsHome -}}
@@ -21,20 +21,18 @@
   </ol>
 </nav>
 
+{{- /* Build the JSON-LD as a Go data structure and emit it directly. Inside a
+     <script type="application/ld+json"> the html/template JSON escaper serializes
+     it exactly once, so URLs/names are always valid (do NOT pipe through jsonify
+     here, that double-encodes). */ -}}
+{{- $listElements := slice -}}
+{{- range $i, $item := $items -}}
+  {{- $listElements = $listElements | append (dict
+      "@type" "ListItem"
+      "position" (add $i 1)
+      "name" $item.name
+      "item" $item.url) -}}
+{{- end -}}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {{- range $i, $item := $items -}}
-    {{ if $i }},{{ end }}
-    {
-      "@type": "ListItem",
-      "position": {{ add $i 1 }},
-      "name": "{{ $item.name | safeJS }}",
-      "item": "{{ $item.url | safeJS }}"
-    }
-    {{- end -}}
-  ]
-}
+{{ dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $listElements }}
 </script>
