@@ -5,7 +5,7 @@
   {{ with .Params.description }}
   <p class="text-muted">{{ . }}</p>
   {{ end }}
-  <div class="columns-1 md:columns-3 gap-4 mt-4">
+  <div class="columns-1 md:columns-2 lg:columns-3 gap-4 mt-4">
     {{ range first 6 $pages }}
       {{ partial "card/blog.html" . }}
     {{ end }}

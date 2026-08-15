@@ -57,7 +57,7 @@
     {{ with $other }}
     <section class="mt-10 pt-6 border-t border-line">
       <h2 class="text-lg font-serif font-bold mb-4">Artikel Lainnya</h2>
-      <div class="columns-1 md:columns-3 gap-4">
+      <div class="columns-1 md:columns-2 lg:columns-3 gap-4">
         {{ range . }}
         <div class="break-inside-avoid">
           {{ partial "card/blog.html" . }}

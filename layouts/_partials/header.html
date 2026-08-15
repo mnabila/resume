@@ -2,7 +2,7 @@
   <nav aria-label="Main navigation" class="relative pb-2 border-b border-line border-line text-sm font-medium">
     <div class="flex items-center justify-between">
       <!-- Hamburger button (mobile only) -->
-      <button id="menu-toggle" class="md:hidden p-1" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg class="h-6 w-6" id="menu-icon-open" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
@@ -28,20 +28,20 @@
       </div>
 
       <!-- Social icons (always visible) -->
-      <div class="flex items-center gap-2">
-        <a href="{{ .Site.Params.social.email }}" class="rounded-md border border-line" title="Email" aria-label="Email">
+      <div class="flex items-center gap-1.5">
+        <a href="{{ .Site.Params.social.email }}" class="inline-flex p-1.5 rounded-md border border-line hover:border-accent transition-colors" title="Email" aria-label="Email">
           {{ partial "icon/email.html" (dict "class" "h-6 w-6") . }}
         </a>
-        <a href="{{ .Site.Params.social.github }}" class="rounded-md border border-line" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+        <a href="{{ .Site.Params.social.github }}" class="inline-flex p-1.5 rounded-md border border-line hover:border-accent transition-colors" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
           {{ partial "icon/github.html" (dict "class" "h-6 w-6") . }}
         </a>
-        <a href="{{ .Site.Params.social.gitlab }}" class="rounded-md border border-line" target="_blank" rel="noopener noreferrer" title="GitLab" aria-label="GitLab">
+        <a href="{{ .Site.Params.social.gitlab }}" class="inline-flex p-1.5 rounded-md border border-line hover:border-accent transition-colors" target="_blank" rel="noopener noreferrer" title="GitLab" aria-label="GitLab">
           {{ partial "icon/gitlab.html" (dict "class" "h-6 w-6") . }}
         </a>
-        <a href="{{ .Site.Params.social.telegram }}" class="rounded-md border border-line" target="_blank" rel="noopener noreferrer" title="Telegram" aria-label="Telegram">
+        <a href="{{ .Site.Params.social.telegram }}" class="inline-flex p-1.5 rounded-md border border-line hover:border-accent transition-colors" target="_blank" rel="noopener noreferrer" title="Telegram" aria-label="Telegram">
           {{ partial "icon/telegram.html" (dict "class" "h-6 w-6") . }}
         </a>
-        <a href="{{ .Site.Params.social.linkedin }}" class="rounded-md border border-line" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+        <a href="{{ .Site.Params.social.linkedin }}" class="inline-flex p-1.5 rounded-md border border-line hover:border-accent transition-colors" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
           {{ partial "icon/linkedin.html" (dict "class" "h-6 w-6") . }}
         </a>
       </div>
