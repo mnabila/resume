@@ -1,7 +1,7 @@
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
   mermaid.initialize({
-    startOnLoad: true,
+    startOnLoad: false,
     theme: 'base',
     fontFamily: 'Manrope, system-ui, sans-serif',
     themeVariables: {
@@ -44,4 +44,8 @@
       sequenceNumberColor: '#1D2021',
     },
   });
+  // The module is deferred, so the DOM is already parsed and the .mermaid
+  // elements exist by the time this runs. Call run() explicitly instead of
+  // relying on startOnLoad, whose DOMContentLoaded listener would be missed.
+  await mermaid.run();
 </script>
